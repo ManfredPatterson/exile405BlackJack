@@ -100,7 +100,7 @@ public class Bjack {
 		rulebtn.setBounds(291, 447, 148, 48);
 		panelRules.add(rulebtn);
 		
-		JLabel rule1 = new JLabel("PLAYER MAY \"DOUBLE DOWN\" ON VALUES EQUAL TO 8, 10, AND 11");
+		JLabel rule1 = new JLabel("PLAYER MAY \"DOUBLE DOWN\" ON VALUES EQUAL TO 9, 10, AND 11");
 		rule1.setHorizontalAlignment(SwingConstants.CENTER);
 		rule1.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 18));
 		rule1.setBounds(31, 54, 657, 48);

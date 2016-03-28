@@ -26,6 +26,11 @@ import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.*;
 import java.awt.Dialog;
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+import java.io.IOException;
+
 
 public class Gamepage extends JFrame {
 
@@ -51,6 +56,18 @@ public class Gamepage extends JFrame {
 		});
 	}
 
+	char[][] card1 = new char[29][10];
+
+	public void strat_card()
+	{
+		File file = new File("card.txt");
+		
+		
+	}
+	
+	
+	
+	
 	//Shuffle method for making the deck of cards array random
 	public static void shuffle(Object[] array)
 	{
@@ -109,6 +126,10 @@ public class Gamepage extends JFrame {
 	int aceyD = 0;
 	int aceyH = 0;
 	int aceyS = 0;
+	int aceyC2 = 0;
+	int aceyD2 = 0;
+	int aceyH2 = 0;
+	int aceyS2 = 0;
 	int pacey;
 	int pacey2;
 	int card;
@@ -138,6 +159,10 @@ public class Gamepage extends JFrame {
 	int subbet = 0;
 	boolean d_switch = false;
 	int lost_the_game = 0;
+	int d_bust = 0;
+	int p_bust = 0;
+	int hit_num = 0;
+	int total = 0;
 	
 	/**
 	 * Create the frame.
@@ -330,6 +355,10 @@ public class Gamepage extends JFrame {
 		Image slotframe4 = new ImageIcon(this.getClass().getResource("/cardslot.png")).getImage();				///
 		Image splitslot1 = new ImageIcon(this.getClass().getResource("/cardslot.png")).getImage();				///
 		Image splitslot2 = new ImageIcon(this.getClass().getResource("/cardslot.png")).getImage();				///
+				
+				JLabel card4p2 = new JLabel("");
+				card4p2.setBounds(551, 338, 105, 141);
+				panelGame.add(card4p2);
 																												///
 																												///
 		//JLabels which will hold the image objects to show the user on game screen								///
@@ -358,6 +387,12 @@ public class Gamepage extends JFrame {
 				lblDealerSlot4.setBounds(838, 109, 107, 155);
 				lblDealerSlot4.setIcon(new ImageIcon(slotframe1));
 				panelGame.add(lblDealerSlot4);
+				//**/
+				//Player Card Slot2																		//**/
+				JLabel cards4 = new JLabel("");															//**/
+				cards4.setBounds(383, 338, 105, 141);													//**/
+				cards4.setIcon(new ImageIcon());														//**/
+				panelGame.add(cards4);
 																												///
 				JLabel PlayerSlot = new JLabel("");																///
 				PlayerSlot.setBounds(342, 338, 107, 155);														///
@@ -419,18 +454,8 @@ public class Gamepage extends JFrame {
 				panelGame.add(cards3);																	//**/																	//**/	
 				
 				JLabel card3p1 = new JLabel("");
-				card3p1.setBounds(376, 338, 105, 141);
+				card3p1.setBounds(524, 338, 105, 141);
 				panelGame.add(card3p1);
-																										//**/
-				//Player Card Slot2																		//**/
-				JLabel cards4 = new JLabel("");															//**/
-				cards4.setBounds(524, 338, 105, 141);													//**/
-				cards4.setIcon(new ImageIcon());														//**/
-				panelGame.add(cards4);
-				
-				JLabel card4p2 = new JLabel("");
-				card4p2.setBounds(551, 338, 105, 141);
-				panelGame.add(card4p2);
 				
 																										//**/
 		//**************************************************************************************************/
@@ -548,10 +573,11 @@ public class Gamepage extends JFrame {
 					
 					
 					
+					hasBlackjack();
 					
 					
-					
-					
+					if (b == true)
+					{
 
 					
 					if (d_total == 21 && p_total != 21)
@@ -604,22 +630,1132 @@ public class Gamepage extends JFrame {
 						
 						JOptionPane.showMessageDialog(frame, "New Balance has been applied. Press DEAL after placing a new bet!");
 					}
-					else if (p_total > d_total)
+					else
+					{
+						
+					}
+					
+					}
+					else
+					{
+						if (d_total < 17)
+						{
+							
+							if(card > 34)
+							{
+								shuffletracker = 0;
+								
+								JOptionPane.showMessageDialog(frame, "65% of the Cards has been used. Reshuffling Deck!");
+								
+								if(shuffletracker == 0)
+								{
+									shuffle(deck);
+									card = 0;
+									shuffletracker = 1;
+								}
+								
+								card = 0;
+								
+								
+								JOptionPane.showMessageDialog(frame, "Deck has been Reshuffled!  Continuing phase!");
+							}	
+								
+							if(deck[card].equals("ac"))
+							{
+							dSlot3.setIcon(new ImageIcon(ac));
+							card++;
+							
+							//ace variable tracker
+							aceyC2 = 1;
+							
+							d_value3 = 11;
+							}
+							else if (deck[card].equals("ad"))
+							{
+								dSlot3.setIcon(new ImageIcon(ad));
+								card++;
+								
+								aceyD2 = 1;
+								d_value3 = 11;
+							}
+							else if (deck[card].equals("ah"))
+							{
+								dSlot3.setIcon(new ImageIcon(ah));
+								card++;
+								
+								aceyH2 = 1;
+								d_value3 = 11;
+							}
+							else if (deck[card].equals("as"))
+							{
+								dSlot3.setIcon(new ImageIcon(as));
+								card++;
+								
+								aceyS2 = 1;
+								d_value3 = 11;
+							}
+							else if (deck[card].equals("c2"))
+							{
+								dSlot3.setIcon(new ImageIcon(c2));
+								card++;
+								
+								d_value3 = 2;
+							}
+							else if (deck[card].equals("d2"))
+							{
+								dSlot3.setIcon(new ImageIcon(d2));
+								card++;
+								
+								d_value3 = 2;
+							}
+							else if (deck[card].equals("h2"))
+							{
+								dSlot3.setIcon(new ImageIcon(h2));
+								card++;
+								
+								d_value3 = 2;
+							}
+							else if (deck[card].equals("s2"))
+							{
+								dSlot3.setIcon(new ImageIcon(s2));
+								card++;
+								
+								d_value3 = 2;
+							}
+							else if (deck[card].equals("c3"))
+							{
+								dSlot3.setIcon(new ImageIcon(c3));
+								card++;
+								
+								d_value3 = 3;
+							}
+							else if (deck[card].equals("d3"))
+							{
+								dSlot3.setIcon(new ImageIcon(d3));
+								card++;
+								
+								d_value3 = 3;
+							}
+							else if (deck[card].equals("h3"))
+							{
+								dSlot3.setIcon(new ImageIcon(h3));
+								card++;
+								
+								d_value3 = 3;
+							}
+							else if (deck[card].equals("s3"))
+							{
+								dSlot3.setIcon(new ImageIcon(s3));
+								card++;
+								
+								d_value3 = 3;
+							}
+							else if (deck[card].equals("c4"))
+							{
+								dSlot3.setIcon(new ImageIcon(c4));
+								card++;
+								
+								d_value3 = 4;
+							}
+							else if (deck[card].equals("d4"))
+							{
+								dSlot3.setIcon(new ImageIcon(d4));
+								card++;
+								
+								d_value3 = 4;
+							}
+							else if (deck[card].equals("h4"))
+							{
+								dSlot3.setIcon(new ImageIcon(h4));
+								card++;
+								
+								d_value3 = 4;
+							}
+							else if (deck[card].equals("s4"))
+							{
+								dSlot3.setIcon(new ImageIcon(s4));
+								card++;
+								
+								d_value3 = 4;
+							}
+							else if (deck[card].equals("c5"))
+							{
+								dSlot3.setIcon(new ImageIcon(c5));
+								card++;
+								
+								d_value3 = 5;
+							}
+							else if (deck[card].equals("d5"))
+							{
+								dSlot3.setIcon(new ImageIcon(d5));
+								card++;
+								
+								d_value3 = 5;
+							}
+							else if (deck[card].equals("h5"))
+							{
+								dSlot3.setIcon(new ImageIcon(h5));
+								card++;
+								
+								d_value3 = 5;
+							}
+							else if (deck[card].equals("s5"))
+							{
+								dSlot3.setIcon(new ImageIcon(s5));
+								card++;
+								
+								d_value3 = 5;
+							}
+							else if (deck[card].equals("c6"))
+							{
+								dSlot3.setIcon(new ImageIcon(c6));
+								card++;
+								
+								d_value3 = 6;
+							}
+							else if (deck[card].equals("d6"))
+							{
+								dSlot3.setIcon(new ImageIcon(d6));
+								card++;
+								
+								d_value3 = 6;
+							}
+							else if (deck[card].equals("h6"))
+							{
+								dSlot3.setIcon(new ImageIcon(h6));
+								card++;
+								
+								d_value3 = 6;
+							}
+							else if (deck[card].equals("s6"))
+							{
+								dSlot3.setIcon(new ImageIcon(s6));
+								card++;
+								
+								d_value3 = 6;
+							}
+							else if (deck[card].equals("c7"))
+							{
+								dSlot3.setIcon(new ImageIcon(c7));
+								card++;
+								
+								d_value3 = 7;
+							}
+							else if (deck[card].equals("d7"))
+							{
+								dSlot3.setIcon(new ImageIcon(d7));
+								card++;
+								
+								d_value3 = 7;
+							}
+							else if (deck[card].equals("h7"))
+							{
+								dSlot3.setIcon(new ImageIcon(h7));
+								card++;
+								
+								d_value3 = 7;
+							}
+							else if (deck[card].equals("s7"))
+							{
+								dSlot3.setIcon(new ImageIcon(s7));
+								card++;
+								
+								d_value3 = 7;
+							}
+							else if (deck[card].equals("c8"))
+							{
+								dSlot3.setIcon(new ImageIcon(c8));
+								card++;
+								
+								d_value3 = 8;
+							}
+							else if (deck[card].equals("d8"))
+							{
+								dSlot3.setIcon(new ImageIcon(d8));
+								card++;
+								
+								d_value3 = 8;
+							}
+							else if (deck[card].equals("h8"))
+							{
+								dSlot3.setIcon(new ImageIcon(h8));
+								card++;
+								
+								d_value3 = 8;
+							}
+							else if (deck[card].equals("s8"))
+							{
+								dSlot3.setIcon(new ImageIcon(s8));
+								card++;
+								
+								d_value3 = 8;
+							}
+							else if (deck[card].equals("c9"))
+							{
+								dSlot3.setIcon(new ImageIcon(c9));
+								card++;
+								
+								d_value3 = 9;
+							}
+							else if (deck[card].equals("d9"))
+							{
+								dSlot3.setIcon(new ImageIcon(d9));
+								card++;
+								
+								d_value3 = 9;
+							}
+							else if (deck[card].equals("h9"))
+							{
+								dSlot3.setIcon(new ImageIcon(h9));
+								card++;
+								
+								d_value3 = 9;
+							}
+							else if (deck[card].equals("s9"))
+							{
+								dSlot3.setIcon(new ImageIcon(s9));
+								card++;
+								
+								d_value3 = 9;
+							}
+							else if (deck[card].equals("c10"))
+							{
+								dSlot3.setIcon(new ImageIcon(c10));
+								card++;
+								
+								d_value3 = 10;
+							}
+							else if (deck[card].equals("d10"))
+							{
+								dSlot3.setIcon(new ImageIcon(d10));
+								card++;
+								
+								d_value3 = 10;
+							}
+							else if (deck[card].equals("h10"))
+							{
+								dSlot3.setIcon(new ImageIcon(h10));
+								card++;
+								
+								d_value3 = 10;
+							}
+							else if (deck[card].equals("s10"))
+							{
+								dSlot3.setIcon(new ImageIcon(s10));
+								card++;
+								
+								d_value3 = 10;
+							}
+							else if (deck[card].equals("cJ"))
+							{
+								dSlot3.setIcon(new ImageIcon(cJ));
+								card++;
+								
+								d_value3 = 10;
+							}
+							else if (deck[card].equals("dJ"))
+							{
+								dSlot3.setIcon(new ImageIcon(dJ));
+								card++;
+								
+								d_value3 = 10;
+							}
+							else if (deck[card].equals("hJ"))
+							{
+								dSlot3.setIcon(new ImageIcon(hJ));
+								card++;
+								
+								d_value3 = 10;
+							}
+							else if (deck[card].equals("sJ"))
+							{
+								dSlot3.setIcon(new ImageIcon(sJ));
+								card++;
+								
+								d_value3 = 10;
+							}
+							else if (deck[card].equals("cQ"))
+							{
+								dSlot3.setIcon(new ImageIcon(cQ));
+								card++;
+								
+								d_value3 = 10;
+							}
+							else if (deck[card].equals("dQ"))
+							{
+								dSlot3.setIcon(new ImageIcon(dQ));
+								card++;
+								
+								d_value3 = 10;
+							}
+							else if (deck[card].equals("hQ"))
+							{
+								dSlot3.setIcon(new ImageIcon(hQ));
+								card++;
+								
+								d_value3 = 10;
+							}
+							else if (deck[card].equals("sQ"))
+							{
+								dSlot3.setIcon(new ImageIcon(sQ));
+								card++;
+								
+								d_value3 = 10;
+							}
+							else if (deck[card].equals("cK"))
+							{
+								dSlot3.setIcon(new ImageIcon(cK));
+								card++;
+								
+								d_value3 = 10;
+							}
+							else if (deck[card].equals("dK"))
+							{
+								dSlot3.setIcon(new ImageIcon(dK));
+								card++;
+								
+								d_value3 = 10;
+							}
+							else if (deck[card].equals("hK"))
+							{
+								dSlot3.setIcon(new ImageIcon(hK));
+								card++;
+								
+								d_value3 = 10;
+							}
+							else if (deck[card].equals("sK"))
+							{
+								dSlot3.setIcon(new ImageIcon(sK));
+								card++;
+								
+								d_value3 = 10;
+							}
+							else
+							{
+								dSlot3.setIcon(new ImageIcon());
+								card++;
+							}
+							
+							d_total += d_value3;
+							
+							if(d_total == 0)
+							{
+								numberbox.setIcon(new ImageIcon(n0));
+							}
+							else if (d_total == 1)
+							{
+								numberbox.setIcon(new ImageIcon(n1));
+							}
+							else if (d_total == 2)
+							{
+								numberbox.setIcon(new ImageIcon(n2));
+							}
+							else if (d_total == 3)
+							{
+								numberbox.setIcon(new ImageIcon(n3));
+							}
+							else if (d_total == 4)
+							{
+								numberbox.setIcon(new ImageIcon(n4));
+							}
+							else if (d_total == 5)
+							{
+								numberbox.setIcon(new ImageIcon(n5));
+							}
+							else if (d_total == 6)
+							{
+								numberbox.setIcon(new ImageIcon(n6));
+							}
+							else if (d_total == 7)
+							{
+								numberbox.setIcon(new ImageIcon(n7));
+							}
+							else if (d_total == 8)
+							{
+								numberbox.setIcon(new ImageIcon(n8));
+							}
+							else if (d_total == 9)
+							{
+								numberbox.setIcon(new ImageIcon(n9));
+							}
+							else if (d_total == 10)
+							{
+								numberbox.setIcon(new ImageIcon(n10));
+							}
+							else if (d_total == 11)
+							{
+								numberbox.setIcon(new ImageIcon(n11));
+							}
+							else if (d_total == 12)
+							{
+								numberbox.setIcon(new ImageIcon(n12));
+							}
+							else if (d_total == 13)
+							{
+								numberbox.setIcon(new ImageIcon(n13));
+							}
+							else if (d_total == 14)
+							{
+								numberbox.setIcon(new ImageIcon(n14));
+							}
+							else if (d_total == 15)
+							{
+								numberbox.setIcon(new ImageIcon(n15));
+							}
+							else if (d_total == 16)
+							{
+								numberbox.setIcon(new ImageIcon(n16));
+							}
+							else if (d_total == 17)
+							{
+								numberbox.setIcon(new ImageIcon(n17));
+							}
+							else if (d_total == 18)
+							{
+								numberbox.setIcon(new ImageIcon(n18));
+							}
+							else if (d_total == 19)
+							{
+								numberbox.setIcon(new ImageIcon(n19));
+							}
+							else if (d_total == 20)
+							{
+								numberbox.setIcon(new ImageIcon(n20));
+							}
+							else if (d_total == 21)
+							{
+								numberbox.setIcon(new ImageIcon(n21));
+							}
+							else if (d_total == 22)
+							{
+								numberbox.setIcon(new ImageIcon(n22));
+							}
+							else if (d_total == 23)
+							{
+								numberbox.setIcon(new ImageIcon(n23));
+							}
+							else if (d_total == 24)
+							{
+								numberbox.setIcon(new ImageIcon(n24));
+							}
+							else if (d_total == 25)
+							{
+								numberbox.setIcon(new ImageIcon(n25));
+							}
+							else if (d_total == 26)
+							{
+								numberbox.setIcon(new ImageIcon(n26));
+							}
+							else if (d_total == 27)
+							{
+								numberbox.setIcon(new ImageIcon(n27));
+							}
+							else if (d_total == 28)
+							{
+								numberbox.setIcon(new ImageIcon(n28));
+							}
+							else if (d_total == 29)
+							{
+								numberbox.setIcon(new ImageIcon(n29));
+							}
+							else if (d_total == 30)
+							{
+								numberbox.setIcon(new ImageIcon(n30));
+							}
+							else if (d_total == 31)
+							{
+								numberbox.setIcon(new ImageIcon(n31));
+							}
+							else if (d_total == 32)
+							{
+								numberbox.setIcon(new ImageIcon(n32));
+							}
+							else
+							{
+								numberbox.setIcon(new ImageIcon());
+							}
+							
+							if (d_total > 21)
+							{
+								JOptionPane.showMessageDialog(frame, "Dealer BUST! You win your Bet!");
+								
+							}
+							else if (d_total < 17)
+							{
+								if(card > 34)
+								{
+									shuffletracker = 0;
+									
+									JOptionPane.showMessageDialog(frame, "65% of the Cards has been used. Reshuffling Deck!");
+									
+									if(shuffletracker == 0)
+									{
+										shuffle(deck);
+										card = 0;
+										shuffletracker = 1;
+									}
+									
+									card = 0;
+									
+									
+									JOptionPane.showMessageDialog(frame, "Deck has been Reshuffled!  Continuing phase!");
+								}
+								
+								if(deck[card].equals("ac"))
+								{
+								dSlot4.setIcon(new ImageIcon(ac));
+								card++;
+								
+								//ace variable tracker
+								aceyC2 = 1;
+								
+								d_value4 = 11;
+								}
+								else if (deck[card].equals("ad"))
+								{
+									dSlot4.setIcon(new ImageIcon(ad));
+									card++;
+									
+									aceyD2 = 1;
+									d_value4 = 11;
+								}
+								else if (deck[card].equals("ah"))
+								{
+									dSlot4.setIcon(new ImageIcon(ah));
+									card++;
+									
+									aceyH2 = 1;
+									d_value4 = 11;
+								}
+								else if (deck[card].equals("as"))
+								{
+									dSlot4.setIcon(new ImageIcon(as));
+									card++;
+									
+									aceyS2 = 1;
+									d_value4 = 11;
+								}
+								else if (deck[card].equals("c2"))
+								{
+									dSlot4.setIcon(new ImageIcon(c2));
+									card++;
+									
+									d_value4 = 2;
+								}
+								else if (deck[card].equals("d2"))
+								{
+									dSlot4.setIcon(new ImageIcon(d2));
+									card++;
+									
+									d_value4 = 2;
+								}
+								else if (deck[card].equals("h2"))
+								{
+									dSlot4.setIcon(new ImageIcon(h2));
+									card++;
+									
+									d_value4 = 2;
+								}
+								else if (deck[card].equals("s2"))
+								{
+									dSlot4.setIcon(new ImageIcon(s2));
+									card++;
+									
+									d_value4 = 2;
+								}
+								else if (deck[card].equals("c3"))
+								{
+									dSlot4.setIcon(new ImageIcon(c3));
+									card++;
+									
+									d_value4 = 3;
+								}
+								else if (deck[card].equals("d3"))
+								{
+									dSlot4.setIcon(new ImageIcon(d3));
+									card++;
+									
+									d_value4 = 3;
+								}
+								else if (deck[card].equals("h3"))
+								{
+									dSlot4.setIcon(new ImageIcon(h3));
+									card++;
+									
+									d_value4 = 3;
+								}
+								else if (deck[card].equals("s3"))
+								{
+									dSlot4.setIcon(new ImageIcon(s3));
+									card++;
+									
+									d_value4 = 3;
+								}
+								else if (deck[card].equals("c4"))
+								{
+									dSlot4.setIcon(new ImageIcon(c4));
+									card++;
+									
+									d_value4 = 4;
+								}
+								else if (deck[card].equals("d4"))
+								{
+									dSlot4.setIcon(new ImageIcon(d4));
+									card++;
+									
+									d_value4 = 4;
+								}
+								else if (deck[card].equals("h4"))
+								{
+									dSlot4.setIcon(new ImageIcon(h4));
+									card++;
+									
+									d_value4 = 4;
+								}
+								else if (deck[card].equals("s4"))
+								{
+									dSlot4.setIcon(new ImageIcon(s4));
+									card++;
+									
+									d_value4 = 4;
+								}
+								else if (deck[card].equals("c5"))
+								{
+									dSlot4.setIcon(new ImageIcon(c5));
+									card++;
+									
+									d_value4 = 5;
+								}
+								else if (deck[card].equals("d5"))
+								{
+									dSlot4.setIcon(new ImageIcon(d5));
+									card++;
+									
+									d_value4 = 5;
+								}
+								else if (deck[card].equals("h5"))
+								{
+									dSlot4.setIcon(new ImageIcon(h5));
+									card++;
+									
+									d_value4 = 5;
+								}
+								else if (deck[card].equals("s5"))
+								{
+									dSlot4.setIcon(new ImageIcon(s5));
+									card++;
+									
+									d_value4 = 5;
+								}
+								else if (deck[card].equals("c6"))
+								{
+									dSlot4.setIcon(new ImageIcon(c6));
+									card++;
+									
+									d_value4 = 6;
+								}
+								else if (deck[card].equals("d6"))
+								{
+									dSlot4.setIcon(new ImageIcon(d6));
+									card++;
+									
+									d_value4 = 6;
+								}
+								else if (deck[card].equals("h6"))
+								{
+									dSlot4.setIcon(new ImageIcon(h6));
+									card++;
+									
+									d_value4 = 6;
+								}
+								else if (deck[card].equals("s6"))
+								{
+									dSlot4.setIcon(new ImageIcon(s6));
+									card++;
+									
+									d_value4 = 6;
+								}
+								else if (deck[card].equals("c7"))
+								{
+									dSlot4.setIcon(new ImageIcon(c7));
+									card++;
+									
+									d_value4 = 7;
+								}
+								else if (deck[card].equals("d7"))
+								{
+									dSlot4.setIcon(new ImageIcon(d7));
+									card++;
+									
+									d_value4 = 7;
+								}
+								else if (deck[card].equals("h7"))
+								{
+									dSlot4.setIcon(new ImageIcon(h7));
+									card++;
+									
+									d_value4 = 7;
+								}
+								else if (deck[card].equals("s7"))
+								{
+									dSlot4.setIcon(new ImageIcon(s7));
+									card++;
+									
+									d_value4 = 7;
+								}
+								else if (deck[card].equals("c8"))
+								{
+									dSlot4.setIcon(new ImageIcon(c8));
+									card++;
+									
+									d_value4 = 8;
+								}
+								else if (deck[card].equals("d8"))
+								{
+									dSlot4.setIcon(new ImageIcon(d8));
+									card++;
+									
+									d_value4 = 8;
+								}
+								else if (deck[card].equals("h8"))
+								{
+									dSlot4.setIcon(new ImageIcon(h8));
+									card++;
+									
+									d_value4 = 8;
+								}
+								else if (deck[card].equals("s8"))
+								{
+									dSlot4.setIcon(new ImageIcon(s8));
+									card++;
+									
+									d_value4 = 8;
+								}
+								else if (deck[card].equals("c9"))
+								{
+									dSlot4.setIcon(new ImageIcon(c9));
+									card++;
+									
+									d_value4 = 9;
+								}
+								else if (deck[card].equals("d9"))
+								{
+									dSlot4.setIcon(new ImageIcon(d9));
+									card++;
+									
+									d_value4 = 9;
+								}
+								else if (deck[card].equals("h9"))
+								{
+									dSlot4.setIcon(new ImageIcon(h9));
+									card++;
+									
+									d_value4 = 9;
+								}
+								else if (deck[card].equals("s9"))
+								{
+									dSlot4.setIcon(new ImageIcon(s9));
+									card++;
+									
+									d_value4 = 9;
+								}
+								else if (deck[card].equals("c10"))
+								{
+									dSlot4.setIcon(new ImageIcon(c10));
+									card++;
+									
+									d_value4 = 10;
+								}
+								else if (deck[card].equals("d10"))
+								{
+									dSlot4.setIcon(new ImageIcon(d10));
+									card++;
+									
+									d_value4 = 10;
+								}
+								else if (deck[card].equals("h10"))
+								{
+									dSlot4.setIcon(new ImageIcon(h10));
+									card++;
+									
+									d_value4 = 10;
+								}
+								else if (deck[card].equals("s10"))
+								{
+									dSlot4.setIcon(new ImageIcon(s10));
+									card++;
+									
+									d_value4 = 10;
+								}
+								else if (deck[card].equals("cJ"))
+								{
+									dSlot4.setIcon(new ImageIcon(cJ));
+									card++;
+									
+									d_value4 = 10;
+								}
+								else if (deck[card].equals("dJ"))
+								{
+									dSlot4.setIcon(new ImageIcon(dJ));
+									card++;
+									
+									d_value4 = 10;
+								}
+								else if (deck[card].equals("hJ"))
+								{
+									dSlot4.setIcon(new ImageIcon(hJ));
+									card++;
+									
+									d_value4 = 10;
+								}
+								else if (deck[card].equals("sJ"))
+								{
+									dSlot4.setIcon(new ImageIcon(sJ));
+									card++;
+									
+									d_value4 = 10;
+								}
+								else if (deck[card].equals("cQ"))
+								{
+									dSlot4.setIcon(new ImageIcon(cQ));
+									card++;
+									
+									d_value4 = 10;
+								}
+								else if (deck[card].equals("dQ"))
+								{
+									dSlot4.setIcon(new ImageIcon(dQ));
+									card++;
+									
+									d_value4 = 10;
+								}
+								else if (deck[card].equals("hQ"))
+								{
+									dSlot4.setIcon(new ImageIcon(hQ));
+									card++;
+									
+									d_value4 = 10;
+								}
+								else if (deck[card].equals("sQ"))
+								{
+									dSlot4.setIcon(new ImageIcon(sQ));
+									card++;
+									
+									d_value4 = 10;
+								}
+								else if (deck[card].equals("cK"))
+								{
+									dSlot4.setIcon(new ImageIcon(cK));
+									card++;
+									
+									d_value4 = 10;
+								}
+								else if (deck[card].equals("dK"))
+								{
+									dSlot4.setIcon(new ImageIcon(dK));
+									card++;
+									
+									d_value4 = 10;
+								}
+								else if (deck[card].equals("hK"))
+								{
+									dSlot4.setIcon(new ImageIcon(hK));
+									card++;
+									
+									d_value4 = 10;
+								}
+								else if (deck[card].equals("sK"))
+								{
+									dSlot4.setIcon(new ImageIcon(sK));
+									card++;
+									
+									d_value4 = 10;
+								}
+								else
+								{
+									dSlot4.setIcon(new ImageIcon());
+									card++;
+								}
+								
+								d_total += d_value4;
+								if(d_total == 0)
+								{
+									numberbox.setIcon(new ImageIcon(n0));
+								}
+								else if (d_total == 1)
+								{
+									numberbox.setIcon(new ImageIcon(n1));
+								}
+								else if (d_total == 2)
+								{
+									numberbox.setIcon(new ImageIcon(n2));
+								}
+								else if (d_total == 3)
+								{
+									numberbox.setIcon(new ImageIcon(n3));
+								}
+								else if (d_total == 4)
+								{
+									numberbox.setIcon(new ImageIcon(n4));
+								}
+								else if (d_total == 5)
+								{
+									numberbox.setIcon(new ImageIcon(n5));
+								}
+								else if (d_total == 6)
+								{
+									numberbox.setIcon(new ImageIcon(n6));
+								}
+								else if (d_total == 7)
+								{
+									numberbox.setIcon(new ImageIcon(n7));
+								}
+								else if (d_total == 8)
+								{
+									numberbox.setIcon(new ImageIcon(n8));
+								}
+								else if (d_total == 9)
+								{
+									numberbox.setIcon(new ImageIcon(n9));
+								}
+								else if (d_total == 10)
+								{
+									numberbox.setIcon(new ImageIcon(n10));
+								}
+								else if (d_total == 11)
+								{
+									numberbox.setIcon(new ImageIcon(n11));
+								}
+								else if (d_total == 12)
+								{
+									numberbox.setIcon(new ImageIcon(n12));
+								}
+								else if (d_total == 13)
+								{
+									numberbox.setIcon(new ImageIcon(n13));
+								}
+								else if (d_total == 14)
+								{
+									numberbox.setIcon(new ImageIcon(n14));
+								}
+								else if (d_total == 15)
+								{
+									numberbox.setIcon(new ImageIcon(n15));
+								}
+								else if (d_total == 16)
+								{
+									numberbox.setIcon(new ImageIcon(n16));
+								}
+								else if (d_total == 17)
+								{
+									numberbox.setIcon(new ImageIcon(n17));
+								}
+								else if (d_total == 18)
+								{
+									numberbox.setIcon(new ImageIcon(n18));
+								}
+								else if (d_total == 19)
+								{
+									numberbox.setIcon(new ImageIcon(n19));
+								}
+								else if (d_total == 20)
+								{
+									numberbox.setIcon(new ImageIcon(n20));
+								}
+								else if (d_total == 21)
+								{
+									numberbox.setIcon(new ImageIcon(n21));
+								}
+								else if (d_total == 22)
+								{
+									numberbox.setIcon(new ImageIcon(n22));
+								}
+								else if (d_total == 23)
+								{
+									numberbox.setIcon(new ImageIcon(n23));
+								}
+								else if (d_total == 24)
+								{
+									numberbox.setIcon(new ImageIcon(n24));
+								}
+								else if (d_total == 25)
+								{
+									numberbox.setIcon(new ImageIcon(n25));
+								}
+								else if (d_total == 26)
+								{
+									numberbox.setIcon(new ImageIcon(n26));
+								}
+								else if (d_total == 27)
+								{
+									numberbox.setIcon(new ImageIcon(n27));
+								}
+								else if (d_total == 28)
+								{
+									numberbox.setIcon(new ImageIcon(n28));
+								}
+								else if (d_total == 29)
+								{
+									numberbox.setIcon(new ImageIcon(n29));
+								}
+								else if (d_total == 30)
+								{
+									numberbox.setIcon(new ImageIcon(n30));
+								}
+								else if (d_total == 31)
+								{
+									numberbox.setIcon(new ImageIcon(n31));
+								}
+								else if (d_total == 32)
+								{
+									numberbox.setIcon(new ImageIcon(n32));
+								}
+								else
+								{
+									numberbox.setIcon(new ImageIcon());
+								}
+								
+							}
+							
+							
+						}
+						else
+						{
+							
+							//Dealer Busts
+							
+						}
+						
+						
+						
+						
+					}
+					
+					
+					if (d_total > 21)
+					{
+						d_bust = 1; 
+					}
+					
+					
+					
+					if (p_total > d_total)
 					{
 						JOptionPane.showMessageDialog(frame, "You WIN, Dealer loses! YOU WIN YOUR BET!");
 						
-						bet *= 1.5;
+						
 						balance += bet;
 						bet = 0;
 						options = 1;
 						d_switch = false;
 						dealNumber = 0;
+						d_bust = 0;
 						betlbl.setText(String.valueOf(bet));
 						balancelbl.setText(String.valueOf(balance));
 						
 						JOptionPane.showMessageDialog(frame, "New Balance has been applied. Press DEAL after placing a new bet!");
 					}
-					else if (d_total > p_total)
+					else if (d_total > p_total && d_bust == 0)
 					{
 						JOptionPane.showMessageDialog(frame, "Dealer Wins, you Lose! You lost your bet.");
 						
@@ -628,6 +1764,7 @@ public class Gamepage extends JFrame {
 						options = 1;
 						d_switch = false;
 						dealNumber = 0;
+						d_bust = 0;
 						
 						betlbl.setText(String.valueOf(bet));
 						balancelbl.setText(String.valueOf(balance));
@@ -642,10 +1779,34 @@ public class Gamepage extends JFrame {
 							lost_the_game =  1;
 						}
 					}
-					else
+					else if (d_bust == 1)
 					{
+						JOptionPane.showMessageDialog(frame, "You WIN, Dealer BUST! YOU WIN YOUR BET!");
 						
+						
+						balance += bet;
+						bet = 0;
+						options = 1;
+						d_switch = false;
+						dealNumber = 0;
+						betlbl.setText(String.valueOf(bet));
+						balancelbl.setText(String.valueOf(balance));
+						d_bust = 0;
+						JOptionPane.showMessageDialog(frame, "New Balance has been applied. Press DEAL after placing a new bet!");
 					}
+					else if(p_total == d_total)
+					{
+						JOptionPane.showMessageDialog(frame, "TIE! Bet is returned! ");
+						
+						bet = 0;
+						options = 1;
+						d_switch = false;
+						dealNumber = 0;
+						betlbl.setText(String.valueOf(bet));
+					}
+					
+					
+					
 					
 					
 				}
@@ -660,15 +1821,1726 @@ public class Gamepage extends JFrame {
 		btnStand.setBounds(6, 423, 250, 30);
 		panelGame.add(btnStand);
 		
+
+		//*************************************************************************************************************************************
+		//*************************************************************************************************************************************
+		//*************************************************************************************************************************************
+		//*************************************************************************************************************************************
+		//*************************************************************************************************************************************
+		//*************************************************************************************************************************************
+		//*************************************************************************************************************************************
 		Image ht = new ImageIcon(this.getClass().getResource("/ht.png")).getImage();
 		JButton btnHit = new JButton("");
+		btnHit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				
+				
+				
+			if (d_switch == true)
+			{	
+				JOptionPane.showMessageDialog(frame, "You choose to HIT! Drawing another card...");
+				
+				if (p_total < 21)
+				{
+					if(card > 34)
+					{
+						shuffletracker = 0;
+						
+						JOptionPane.showMessageDialog(frame, "65% of the Cards has been used. Reshuffling Deck!");
+						
+						if(shuffletracker == 0)
+						{
+							shuffle(deck);
+							card = 0;
+							shuffletracker = 1;
+						}
+						
+						card = 0;
+						
+						
+						JOptionPane.showMessageDialog(frame, "Deck has been Reshuffled!  Continuing phase!");
+					}
+					
+					
+					if (hit_num == 0)
+					{
+						hit_num = 1;
+						p_value3 = 0;
+						
+					if (deck[card].equals("ac"))
+					{
+						card3p1.setIcon(new ImageIcon(ac));
+						card++;
+						
+						
+						
+						
+						choice = showConfirmDialog(null, "You Got an ACE! Would you like your card to equal 11? Choose 'yes' for 11 and 'no' for 1");
+						
+						if(choice == 0)
+						{
+							showMessageDialog(null, "Your Ace Card's Value is '11'");
+							ace_valueCp = 11;
+							p_value3 = 11;
+						}
+						else
+						{
+							showMessageDialog(null, "Your Ace Card's Value Stands as '1'");
+							ace_valueCp = 1;
+							p_value3 = 1;
+						}
+						
+					}
+					else if (deck[card].equals("ad"))
+					{
+						card3p1.setIcon(new ImageIcon(ad));
+						card++;
+						
+						choice = showConfirmDialog(null, "You Got an ACE! Would you like your card to equal 11? Choose 'yes' for 11 and 'no' for 1");
+						
+						if(choice == 0)
+						{
+							showMessageDialog(null, "Your Ace Card's Value is '11'");
+							ace_valueDp = 11;
+							p_value3 = 11;
+							
+						}
+						else
+						{
+							showMessageDialog(null, "Your Ace Card's Value Stands as '1'");
+							ace_valueDp = 1;
+							p_value3 = 1;
+						}
+					}
+					else if (deck[card].equals("ah"))
+					{
+						card3p1.setIcon(new ImageIcon(ah));
+						card++;
+						
+						choice = showConfirmDialog(null, "You Got an ACE! Would you like your card to equal 11? Choose 'yes' for 11 and 'no' for 1");
+						
+						if(choice == 0)
+						{
+							showMessageDialog(null, "Your Ace Card's Value is '11'");
+							ace_valueHp = 11;
+							p_value3 = 11;
+							
+						}
+						else
+						{
+							showMessageDialog(null, "Your Ace Card's Value Stands as '1'");
+							ace_valueHp = 1;
+							p_value3 = 1;
+							
+						}
+					}
+					else if (deck[card].equals("as"))
+					{
+						card3p1.setIcon(new ImageIcon(as));
+						card++;
+						
+						choice = showConfirmDialog(null, "You Got an ACE! Would you like your card to equal 11? Choose 'yes' for 11 and 'no' for 1");
+						
+						if(choice == 0)
+						{
+							showMessageDialog(null, "Your Ace Card's Value is '11'");
+							ace_valueSp = 11;
+							p_value3 = 11;
+						}
+						else
+						{
+							showMessageDialog(null, "Your Ace Card's Value Stands as '1'");
+							ace_valueSp = 1;
+							p_value3 = 1;
+						}
+					}
+					else if (deck[card].equals("c2"))
+					{
+						card3p1.setIcon(new ImageIcon(c2));
+						card++;
+						p_value3 = 2;
+					}
+					else if (deck[card].equals("d2"))
+					{
+						card3p1.setIcon(new ImageIcon(d2));
+						card++;
+						p_value3 = 2;
+					}
+					else if (deck[card].equals("h2"))
+					{
+						card3p1.setIcon(new ImageIcon(h2));
+						card++;
+						p_value3 = 2;
+					}
+					else if (deck[card].equals("s2"))
+					{
+						card3p1.setIcon(new ImageIcon(s2));
+						card++;
+						p_value3 = 2;
+					}
+					else if (deck[card].equals("c3"))
+					{
+						card3p1.setIcon(new ImageIcon(c3));
+						card++;
+						p_value3 = 3;
+					}
+					else if (deck[card].equals("d3"))
+					{
+						card3p1.setIcon(new ImageIcon(d3));
+						card++;
+						p_value3 = 3;
+					}
+					else if (deck[card].equals("h3"))
+					{
+						card3p1.setIcon(new ImageIcon(h3));
+						card++;
+						p_value3 = 3;
+					}
+					else if (deck[card].equals("s3"))
+					{
+						card3p1.setIcon(new ImageIcon(s3));
+						card++;
+						p_value3 = 3;
+						
+					}
+					else if (deck[card].equals("c4"))
+					{
+						card3p1.setIcon(new ImageIcon(c4));
+						card++;
+						p_value3 = 4;
+					}
+					else if (deck[card].equals("d4"))
+					{
+						card3p1.setIcon(new ImageIcon(d4));
+						card++;
+						p_value3 = 4;
+					}
+					else if (deck[card].equals("h4"))
+					{
+						card3p1.setIcon(new ImageIcon(h4));
+						card++;
+						p_value3 = 4;
+					}
+					else if (deck[card].equals("s4"))
+					{
+						card3p1.setIcon(new ImageIcon(s4));
+						card++;
+						p_value3 = 4;
+					}
+					else if (deck[card].equals("c5"))
+					{
+						card3p1.setIcon(new ImageIcon(c5));
+						card++;
+						p_value3 = 5;
+					}
+					else if (deck[card].equals("d5"))
+					{
+						card3p1.setIcon(new ImageIcon(d5));
+						card++;
+						p_value3 = 5;
+					}
+					else if (deck[card].equals("h5"))
+					{
+						card3p1.setIcon(new ImageIcon(h5));
+						card++;
+						p_value3 = 5;
+					}
+					else if (deck[card].equals("s5"))
+					{
+						card3p1.setIcon(new ImageIcon(s5));
+						card++;
+						p_value3 = 5;
+					}
+					else if (deck[card].equals("c6"))
+					{
+						card3p1.setIcon(new ImageIcon(c6));
+						card++;
+						p_value3 = 6;
+					}
+					else if (deck[card].equals("d6"))
+					{
+						card3p1.setIcon(new ImageIcon(d6));
+						card++;
+						p_value3 = 6;
+					}
+					else if (deck[card].equals("h6"))
+					{
+						card3p1.setIcon(new ImageIcon(h6));
+						card++;
+						p_value3 = 6;
+					}
+					else if (deck[card].equals("s6"))
+					{
+						card3p1.setIcon(new ImageIcon(s6));
+						card++;
+						p_value3 = 6;
+					}
+					else if (deck[card].equals("c7"))
+					{
+						card3p1.setIcon(new ImageIcon(c7));
+						card++;
+						p_value3 = 7;
+					}
+					else if (deck[card].equals("d7"))
+					{
+						card3p1.setIcon(new ImageIcon(d7));
+						card++;
+						p_value3 = 7;
+					}
+					else if (deck[card].equals("h7"))
+					{
+						card3p1.setIcon(new ImageIcon(h7));
+						card++;
+						p_value3 = 7;
+					}
+					else if (deck[card].equals("s7"))
+					{
+						card3p1.setIcon(new ImageIcon(s7));
+						card++;
+						p_value3 = 7;
+					}
+					else if (deck[card].equals("c8"))
+					{
+						card3p1.setIcon(new ImageIcon(c8));
+						card++;
+						p_value3 = 8;
+					}
+					else if (deck[card].equals("d8"))
+					{
+						card3p1.setIcon(new ImageIcon(d8));
+						card++;
+						p_value3 = 8;
+					}
+					else if (deck[card].equals("h8"))
+					{
+						card3p1.setIcon(new ImageIcon(h8));
+						card++;
+						p_value3 = 8;
+					}
+					else if (deck[card].equals("s8"))
+					{
+						card3p1.setIcon(new ImageIcon(s8));
+						card++;
+						p_value3 = 8;
+					}
+					else if (deck[card].equals("c9"))
+					{
+						card3p1.setIcon(new ImageIcon(c9));
+						card++;
+						p_value3 = 9;
+					}
+					else if (deck[card].equals("d9"))
+					{
+						card3p1.setIcon(new ImageIcon(d9));
+						card++;
+						p_value3 = 9;
+					}
+					else if (deck[card].equals("h9"))
+					{
+						card3p1.setIcon(new ImageIcon(h9));
+						card++;
+						p_value3 = 9;
+					}
+					else if (deck[card].equals("s9"))
+					{
+						card3p1.setIcon(new ImageIcon(s9));
+						card++;
+						p_value3 = 9;
+					}
+					else if (deck[card].equals("c10"))
+					{
+						card3p1.setIcon(new ImageIcon(c10));
+						card++;
+						p_value3 = 10;
+					}
+					else if (deck[card].equals("d10"))
+					{
+						card3p1.setIcon(new ImageIcon(d10));
+						card++;
+						p_value3 = 10;
+					}
+					else if (deck[card].equals("h10"))
+					{
+						card3p1.setIcon(new ImageIcon(h10));
+						card++;
+						p_value3 = 10;
+					}
+					else if (deck[card].equals("s10"))
+					{
+						card3p1.setIcon(new ImageIcon(s10));
+						card++;
+						p_value3 = 10;
+					}
+					else if (deck[card].equals("cJ"))
+					{
+						card3p1.setIcon(new ImageIcon(cJ));
+						card++;
+						p_value3 = 10;
+					}
+					else if (deck[card].equals("dJ"))
+					{
+						card3p1.setIcon(new ImageIcon(dJ));
+						card++;
+						p_value3 = 10;
+					}
+					else if (deck[card].equals("hJ"))
+					{
+						card3p1.setIcon(new ImageIcon(hJ));
+						card++;
+						p_value3 = 10;
+					}
+					else if (deck[card].equals("sJ"))
+					{
+						card3p1.setIcon(new ImageIcon(sJ));
+						card++;
+						p_value3 = 10;
+					}
+					else if (deck[card].equals("cQ"))
+					{
+						card3p1.setIcon(new ImageIcon(cQ));
+						card++;
+						p_value3 = 10;
+					}
+					else if (deck[card].equals("dQ"))
+					{
+						card3p1.setIcon(new ImageIcon(dQ));
+						card++;
+						p_value3 = 10;
+					}
+					else if (deck[card].equals("hQ"))
+					{
+						card3p1.setIcon(new ImageIcon(hQ));
+						card++;
+						p_value3 = 10;
+					}
+					else if (deck[card].equals("sQ"))
+					{
+						card3p1.setIcon(new ImageIcon(sQ));
+						card++;
+						p_value3 = 10;
+					}
+					else if (deck[card].equals("cK"))
+					{
+						card3p1.setIcon(new ImageIcon(cK));
+						card++;
+						p_value3 = 10;
+					}
+					else if (deck[card].equals("dK"))
+					{
+						card3p1.setIcon(new ImageIcon(dK));
+						card++;
+						p_value3 = 10;
+					}
+					else if (deck[card].equals("hK"))
+					{
+						card3p1.setIcon(new ImageIcon(hK));
+						card++;
+						p_value3 = 10;
+					}
+					else if (deck[card].equals("sK"))
+					{
+						card3p1.setIcon(new ImageIcon(sK));
+						card++;
+						p_value3 = 10;
+					}
+					else
+					{
+						card3p1.setIcon(new ImageIcon());
+						card++;
+					}
+						p_total += p_value3;
+					
+					}
+					else if (hit_num == 1)
+					{
+						
+						p_value4 = 0;
+					//This is the second slot for if the player wants to hit a second time
+						if (deck[card].equals("ac"))
+						{
+							card4p2.setIcon(new ImageIcon(ac));
+							card++;
+							
+							
+							
+							
+							choice = showConfirmDialog(null, "You Got an ACE! Would you like your card to equal 11? Choose 'yes' for 11 and 'no' for 1");
+							
+							if(choice == 0)
+							{
+								showMessageDialog(null, "Your Ace Card's Value is '11'");
+								ace_valueCp = 11;
+								p_value4 = 11;
+							}
+							else
+							{
+								showMessageDialog(null, "Your Ace Card's Value Stands as '1'");
+								ace_valueCp = 1;
+								p_value4 = 1;
+							}
+							
+						}
+						else if (deck[card].equals("ad"))
+						{
+							card4p2.setIcon(new ImageIcon(ad));
+							card++;
+							
+							choice = showConfirmDialog(null, "You Got an ACE! Would you like your card to equal 11? Choose 'yes' for 11 and 'no' for 1");
+							
+							if(choice == 0)
+							{
+								showMessageDialog(null, "Your Ace Card's Value is '11'");
+								ace_valueDp = 11;
+								p_value4 = 11;
+								
+							}
+							else
+							{
+								showMessageDialog(null, "Your Ace Card's Value Stands as '1'");
+								ace_valueDp = 1;
+								p_value4 = 1;
+							}
+						}
+						else if (deck[card].equals("ah"))
+						{
+							card4p2.setIcon(new ImageIcon(ah));
+							card++;
+							
+							choice = showConfirmDialog(null, "You Got an ACE! Would you like your card to equal 11? Choose 'yes' for 11 and 'no' for 1");
+							
+							if(choice == 0)
+							{
+								showMessageDialog(null, "Your Ace Card's Value is '11'");
+								ace_valueHp = 11;
+								p_value4 = 11;
+								
+							}
+							else
+							{
+								showMessageDialog(null, "Your Ace Card's Value Stands as '1'");
+								ace_valueHp = 1;
+								p_value4 = 1;
+								
+							}
+						}
+						else if (deck[card].equals("as"))
+						{
+							card4p2.setIcon(new ImageIcon(as));
+							card++;
+							
+							choice = showConfirmDialog(null, "You Got an ACE! Would you like your card to equal 11? Choose 'yes' for 11 and 'no' for 1");
+							
+							if(choice == 0)
+							{
+								showMessageDialog(null, "Your Ace Card's Value is '11'");
+								ace_valueSp = 11;
+								p_value4 = 11;
+							}
+							else
+							{
+								showMessageDialog(null, "Your Ace Card's Value Stands as '1'");
+								ace_valueSp = 1;
+								p_value4 = 1;
+							}
+						}
+						else if (deck[card].equals("c2"))
+						{
+							card4p2.setIcon(new ImageIcon(c2));
+							card++;
+							p_value4 = 2;
+						}
+						else if (deck[card].equals("d2"))
+						{
+							card4p2.setIcon(new ImageIcon(d2));
+							card++;
+							p_value4 = 2;
+						}
+						else if (deck[card].equals("h2"))
+						{
+							card4p2.setIcon(new ImageIcon(h2));
+							card++;
+							p_value4 = 2;
+						}
+						else if (deck[card].equals("s2"))
+						{
+							card4p2.setIcon(new ImageIcon(s2));
+							card++;
+							p_value4 = 2;
+						}
+						else if (deck[card].equals("c3"))
+						{
+							card4p2.setIcon(new ImageIcon(c3));
+							card++;
+							p_value4 = 3;
+						}
+						else if (deck[card].equals("d3"))
+						{
+							card4p2.setIcon(new ImageIcon(d3));
+							card++;
+							p_value4 = 3;
+						}
+						else if (deck[card].equals("h3"))
+						{
+							card4p2.setIcon(new ImageIcon(h3));
+							card++;
+							p_value4 = 3;
+						}
+						else if (deck[card].equals("s3"))
+						{
+							card4p2.setIcon(new ImageIcon(s3));
+							card++;
+							p_value4 = 3;
+							
+						}
+						else if (deck[card].equals("c4"))
+						{
+							card4p2.setIcon(new ImageIcon(c4));
+							card++;
+							p_value4 = 4;
+						}
+						else if (deck[card].equals("d4"))
+						{
+							card4p2.setIcon(new ImageIcon(d4));
+							card++;
+							p_value4 = 4;
+						}
+						else if (deck[card].equals("h4"))
+						{
+							card4p2.setIcon(new ImageIcon(h4));
+							card++;
+							p_value4 = 4;
+						}
+						else if (deck[card].equals("s4"))
+						{
+							card4p2.setIcon(new ImageIcon(s4));
+							card++;
+							p_value4 = 4;
+						}
+						else if (deck[card].equals("c5"))
+						{
+							card4p2.setIcon(new ImageIcon(c5));
+							card++;
+							p_value4 = 5;
+						}
+						else if (deck[card].equals("d5"))
+						{
+							card4p2.setIcon(new ImageIcon(d5));
+							card++;
+							p_value4 = 5;
+						}
+						else if (deck[card].equals("h5"))
+						{
+							card4p2.setIcon(new ImageIcon(h5));
+							card++;
+							p_value4 = 5;
+						}
+						else if (deck[card].equals("s5"))
+						{
+							card4p2.setIcon(new ImageIcon(s5));
+							card++;
+							p_value4 = 5;
+						}
+						else if (deck[card].equals("c6"))
+						{
+							card4p2.setIcon(new ImageIcon(c6));
+							card++;
+							p_value4 = 6;
+						}
+						else if (deck[card].equals("d6"))
+						{
+							card4p2.setIcon(new ImageIcon(d6));
+							card++;
+							p_value4 = 6;
+						}
+						else if (deck[card].equals("h6"))
+						{
+							card4p2.setIcon(new ImageIcon(h6));
+							card++;
+							p_value4 = 6;
+						}
+						else if (deck[card].equals("s6"))
+						{
+							card4p2.setIcon(new ImageIcon(s6));
+							card++;
+							p_value4 = 6;
+						}
+						else if (deck[card].equals("c7"))
+						{
+							card4p2.setIcon(new ImageIcon(c7));
+							card++;
+							p_value4 = 7;
+						}
+						else if (deck[card].equals("d7"))
+						{
+							card4p2.setIcon(new ImageIcon(d7));
+							card++;
+							p_value4 = 7;
+						}
+						else if (deck[card].equals("h7"))
+						{
+							card4p2.setIcon(new ImageIcon(h7));
+							card++;
+							p_value4 = 7;
+						}
+						else if (deck[card].equals("s7"))
+						{
+							card4p2.setIcon(new ImageIcon(s7));
+							card++;
+							p_value4 = 7;
+						}
+						else if (deck[card].equals("c8"))
+						{
+							card4p2.setIcon(new ImageIcon(c8));
+							card++;
+							p_value4 = 8;
+						}
+						else if (deck[card].equals("d8"))
+						{
+							card4p2.setIcon(new ImageIcon(d8));
+							card++;
+							p_value4 = 8;
+						}
+						else if (deck[card].equals("h8"))
+						{
+							card4p2.setIcon(new ImageIcon(h8));
+							card++;
+							p_value4 = 8;
+						}
+						else if (deck[card].equals("s8"))
+						{
+							card4p2.setIcon(new ImageIcon(s8));
+							card++;
+							p_value4 = 8;
+						}
+						else if (deck[card].equals("c9"))
+						{
+							card4p2.setIcon(new ImageIcon(c9));
+							card++;
+							p_value4 = 9;
+						}
+						else if (deck[card].equals("d9"))
+						{
+							card4p2.setIcon(new ImageIcon(d9));
+							card++;
+							p_value4 = 9;
+						}
+						else if (deck[card].equals("h9"))
+						{
+							card4p2.setIcon(new ImageIcon(h9));
+							card++;
+							p_value4 = 9;
+						}
+						else if (deck[card].equals("s9"))
+						{
+							card4p2.setIcon(new ImageIcon(s9));
+							card++;
+							p_value4 = 9;
+						}
+						else if (deck[card].equals("c10"))
+						{
+							card4p2.setIcon(new ImageIcon(c10));
+							card++;
+							p_value4 = 10;
+						}
+						else if (deck[card].equals("d10"))
+						{
+							card4p2.setIcon(new ImageIcon(d10));
+							card++;
+							p_value4 = 10;
+						}
+						else if (deck[card].equals("h10"))
+						{
+							card4p2.setIcon(new ImageIcon(h10));
+							card++;
+							p_value4 = 10;
+						}
+						else if (deck[card].equals("s10"))
+						{
+							card4p2.setIcon(new ImageIcon(s10));
+							card++;
+							p_value4 = 10;
+						}
+						else if (deck[card].equals("cJ"))
+						{
+							card4p2.setIcon(new ImageIcon(cJ));
+							card++;
+							p_value4 = 10;
+						}
+						else if (deck[card].equals("dJ"))
+						{
+							card4p2.setIcon(new ImageIcon(dJ));
+							card++;
+							p_value4 = 10;
+						}
+						else if (deck[card].equals("hJ"))
+						{
+							card4p2.setIcon(new ImageIcon(hJ));
+							card++;
+							p_value4 = 10;
+						}
+						else if (deck[card].equals("sJ"))
+						{
+							card4p2.setIcon(new ImageIcon(sJ));
+							card++;
+							p_value4 = 10;
+						}
+						else if (deck[card].equals("cQ"))
+						{
+							card4p2.setIcon(new ImageIcon(cQ));
+							card++;
+							p_value4 = 10;
+						}
+						else if (deck[card].equals("dQ"))
+						{
+							card4p2.setIcon(new ImageIcon(dQ));
+							card++;
+							p_value4 = 10;
+						}
+						else if (deck[card].equals("hQ"))
+						{
+							card4p2.setIcon(new ImageIcon(hQ));
+							card++;
+							p_value4 = 10;
+						}
+						else if (deck[card].equals("sQ"))
+						{
+							card4p2.setIcon(new ImageIcon(sQ));
+							card++;
+							p_value4 = 10;
+						}
+						else if (deck[card].equals("cK"))
+						{
+							card4p2.setIcon(new ImageIcon(cK));
+							card++;
+							p_value4 = 10;
+						}
+						else if (deck[card].equals("dK"))
+						{
+							card4p2.setIcon(new ImageIcon(dK));
+							card++;
+							p_value4 = 10;
+						}
+						else if (deck[card].equals("hK"))
+						{
+							card4p2.setIcon(new ImageIcon(hK));
+							card++;
+							p_value4 = 10;
+						}
+						else if (deck[card].equals("sK"))
+						{
+							card4p2.setIcon(new ImageIcon(sK));
+							card++;
+							p_value4 = 10;
+						}
+						else
+						{
+							card4p2.setIcon(new ImageIcon());
+							card++;
+						}
+					
+						p_total += p_value4;
+						hit_num = 0;
+					}
+					
+					
+					/*
+					if (hit_num == 0)
+					{
+						total += p_value3;
+						handValue.setText(String.valueOf(p_total));
+					}
+					else
+					{
+						total += p_value4;
+						
+					}*/
+					
+					
+					
+					handValue.setText(String.valueOf(p_total));
+					
+					
+					
+					if(p_total == 0)
+					{
+						numberbox2.setIcon(new ImageIcon(n0));
+					}
+					else if (p_total == 1)
+					{
+						numberbox2.setIcon(new ImageIcon(n1));
+					}
+					else if (p_total == 2)
+					{
+						numberbox2.setIcon(new ImageIcon(n2));
+					}
+					else if (p_total == 3)
+					{
+						numberbox2.setIcon(new ImageIcon(n3));
+					}
+					else if (p_total == 4)
+					{
+						numberbox2.setIcon(new ImageIcon(n4));
+					}
+					else if (p_total == 5)
+					{
+						numberbox2.setIcon(new ImageIcon(n5));
+					}
+					else if (p_total == 6)
+					{
+						numberbox2.setIcon(new ImageIcon(n6));
+					}
+					else if (p_total == 7)
+					{
+						numberbox2.setIcon(new ImageIcon(n7));
+					}
+					else if (p_total == 8)
+					{
+						numberbox2.setIcon(new ImageIcon(n8));
+					}
+					else if (p_total == 9)
+					{
+						numberbox2.setIcon(new ImageIcon(n9));
+					}
+					else if (p_total == 10)
+					{
+						numberbox2.setIcon(new ImageIcon(n10));
+					}
+					else if (p_total == 11)
+					{
+						numberbox2.setIcon(new ImageIcon(n11));
+					}
+					else if (p_total == 12)
+					{
+						numberbox2.setIcon(new ImageIcon(n12));
+					}
+					else if (p_total == 13)
+					{
+						numberbox2.setIcon(new ImageIcon(n13));
+					}
+					else if (p_total == 14)
+					{
+						numberbox2.setIcon(new ImageIcon(n14));
+					}
+					else if (p_total == 15)
+					{
+						numberbox2.setIcon(new ImageIcon(n15));
+					}
+					else if (p_total == 16)
+					{
+						numberbox2.setIcon(new ImageIcon(n16));
+					}
+					else if (p_total == 17)
+					{
+						numberbox2.setIcon(new ImageIcon(n17));
+					}
+					else if (p_total == 18)
+					{
+						numberbox2.setIcon(new ImageIcon(n18));
+					}
+					else if (p_total == 19)
+					{
+						numberbox2.setIcon(new ImageIcon(n19));
+					}
+					else if (p_total == 20)
+					{
+						numberbox2.setIcon(new ImageIcon(n20));
+					}
+					else if (p_total == 21)
+					{
+						numberbox2.setIcon(new ImageIcon(n21));
+					}
+					else if (p_total == 22)
+					{
+						numberbox2.setIcon(new ImageIcon(n22));
+					}
+					else if (p_total == 23)
+					{
+						numberbox2.setIcon(new ImageIcon(n23));
+					}
+					else if (p_total == 24)
+					{
+						numberbox2.setIcon(new ImageIcon(n24));
+					}
+					else if (p_total == 25)
+					{
+						numberbox2.setIcon(new ImageIcon(n25));
+					}
+					else if (p_total == 26)
+					{
+						numberbox2.setIcon(new ImageIcon(n26));
+					}
+					else if (p_total == 27)
+					{
+						numberbox2.setIcon(new ImageIcon(n27));
+					}
+					else if (p_total == 28)
+					{
+						numberbox2.setIcon(new ImageIcon(n28));
+					}
+					else if (p_total == 29)
+					{
+						numberbox2.setIcon(new ImageIcon(n29));
+					}
+					else if (p_total == 30)
+					{
+						numberbox2.setIcon(new ImageIcon(n30));
+					}
+					else if (p_total == 31)
+					{
+						numberbox2.setIcon(new ImageIcon(n29));
+					}
+					else if (p_total == 32)
+					{
+						numberbox2.setIcon(new ImageIcon(n32));
+					}
+					else
+					{
+						numberbox2.setIcon(new ImageIcon());
+					} 
+					
+					
+					
+					
+					betlbl.setText(String.valueOf(bet));
+					balancelbl.setText(String.valueOf(balance));
+					
+					
+					if (p_total > 21)
+					{
+						JOptionPane.showMessageDialog(frame, "Bust! Your value exceeded 21. You lose your bet. Press Deal for next phase!");
+						
+						balance -= bet;
+						bet = 0;
+						options = 1;
+						d_switch = false;
+						dealNumber = 0;
+						
+						betlbl.setText(String.valueOf(bet));
+						balancelbl.setText(String.valueOf(balance));
+						hit_num = 0;
+						total = 0;
+					}
+					
+					
+					
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(frame, "You can not Hit for another card! Try to deal a new hand!");
+					
+					
+					
+				}
+				
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(frame, "You cannot do this yet! Please press DEAL to start the player phase!");
+
+			}
+				
+			}
+		});
 		btnHit.setIcon(new ImageIcon(ht));
 		btnHit.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnHit.setBounds(6, 454, 250, 30);
 		panelGame.add(btnHit);
 		
+		//*************************************************************************************************************************************
+		//*************************************************************************************************************************************
+		//*************************************************************************************************************************************
+		//*************************************************************************************************************************************
+		//*************************************************************************************************************************************
+		//*************************************************************************************************************************************
+		//*************************************************************************************************************************************
 		Image dd = new ImageIcon(this.getClass().getResource("/dd.png")).getImage();
 		JButton btnDoubleDown = new JButton("");
+		btnDoubleDown.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				
+				if(d_switch == true)
+				{
+				
+					
+					if(p_total == 9 || p_total == 10 || p_total == 11)
+					{
+						
+						JOptionPane.showMessageDialog(frame, "You choose to Double Down! Doubling Current Bet and drawing another card...");
+						JOptionPane.showMessageDialog(frame, "Revealing Dealer Card...");
+						scoreHide.setIcon(new ImageIcon());
+						cardBack.setIcon(new ImageIcon());
+						
+						
+						
+						
+						if(card > 34)
+						{
+							shuffletracker = 0;
+							
+							JOptionPane.showMessageDialog(frame, "65% of the Cards has been used. Reshuffling Deck!");
+							
+							if(shuffletracker == 0)
+							{
+								shuffle(deck);
+								card = 0;
+								shuffletracker = 1;
+							}
+							
+							card = 0;
+							
+							
+							JOptionPane.showMessageDialog(frame, "Deck has been Reshuffled!  Continuing phase!");
+						}					
+						
+						
+						
+						bet *= 2;
+							
+						betlbl.setText(String.valueOf(bet));
+						
+						if (deck[card].equals("ac"))
+						{
+							card3p1.setIcon(new ImageIcon(ac));
+							card++;
+							
+							
+							
+							
+							choice = showConfirmDialog(null, "You Got an ACE! Would you like your card to equal 11? Choose 'yes' for 11 and 'no' for 1");
+							
+							if(choice == 0)
+							{
+								showMessageDialog(null, "Your Ace Card's Value is '11'");
+								ace_valueCp = 11;
+								p_value3 = 11;
+							}
+							else
+							{
+								showMessageDialog(null, "Your Ace Card's Value Stands as '1'");
+								ace_valueCp = 1;
+								p_value3 = 1;
+							}
+							
+						}
+						else if (deck[card].equals("ad"))
+						{
+							card3p1.setIcon(new ImageIcon(ad));
+							card++;
+							
+							choice = showConfirmDialog(null, "You Got an ACE! Would you like your card to equal 11? Choose 'yes' for 11 and 'no' for 1");
+							
+							if(choice == 0)
+							{
+								showMessageDialog(null, "Your Ace Card's Value is '11'");
+								ace_valueDp = 11;
+								p_value3 = 11;
+								
+							}
+							else
+							{
+								showMessageDialog(null, "Your Ace Card's Value Stands as '1'");
+								ace_valueDp = 1;
+								p_value3 = 1;
+							}
+						}
+						else if (deck[card].equals("ah"))
+						{
+							card3p1.setIcon(new ImageIcon(ah));
+							card++;
+							
+							choice = showConfirmDialog(null, "You Got an ACE! Would you like your card to equal 11? Choose 'yes' for 11 and 'no' for 1");
+							
+							if(choice == 0)
+							{
+								showMessageDialog(null, "Your Ace Card's Value is '11'");
+								ace_valueHp = 11;
+								p_value3 = 11;
+								
+							}
+							else
+							{
+								showMessageDialog(null, "Your Ace Card's Value Stands as '1'");
+								ace_valueHp = 1;
+								p_value3 = 1;
+								
+							}
+						}
+						else if (deck[card].equals("as"))
+						{
+							card3p1.setIcon(new ImageIcon(as));
+							card++;
+							
+							choice = showConfirmDialog(null, "You Got an ACE! Would you like your card to equal 11? Choose 'yes' for 11 and 'no' for 1");
+							
+							if(choice == 0)
+							{
+								showMessageDialog(null, "Your Ace Card's Value is '11'");
+								ace_valueSp = 11;
+								p_value3 = 11;
+							}
+							else
+							{
+								showMessageDialog(null, "Your Ace Card's Value Stands as '1'");
+								ace_valueSp = 1;
+								p_value3 = 1;
+							}
+						}
+						else if (deck[card].equals("c2"))
+						{
+							card3p1.setIcon(new ImageIcon(c2));
+							card++;
+							p_value3 = 2;
+						}
+						else if (deck[card].equals("d2"))
+						{
+							card3p1.setIcon(new ImageIcon(d2));
+							card++;
+							p_value3 = 2;
+						}
+						else if (deck[card].equals("h2"))
+						{
+							card3p1.setIcon(new ImageIcon(h2));
+							card++;
+							p_value3 = 2;
+						}
+						else if (deck[card].equals("s2"))
+						{
+							card3p1.setIcon(new ImageIcon(s2));
+							card++;
+							p_value3 = 2;
+						}
+						else if (deck[card].equals("c3"))
+						{
+							card3p1.setIcon(new ImageIcon(c3));
+							card++;
+							p_value3 = 3;
+						}
+						else if (deck[card].equals("d3"))
+						{
+							card3p1.setIcon(new ImageIcon(d3));
+							card++;
+							p_value3 = 3;
+						}
+						else if (deck[card].equals("h3"))
+						{
+							card3p1.setIcon(new ImageIcon(h3));
+							card++;
+							p_value3 = 3;
+						}
+						else if (deck[card].equals("s3"))
+						{
+							card3p1.setIcon(new ImageIcon(s3));
+							card++;
+							p_value3 = 3;
+							
+						}
+						else if (deck[card].equals("c4"))
+						{
+							card3p1.setIcon(new ImageIcon(c4));
+							card++;
+							p_value3 = 4;
+						}
+						else if (deck[card].equals("d4"))
+						{
+							card3p1.setIcon(new ImageIcon(d4));
+							card++;
+							p_value3 = 4;
+						}
+						else if (deck[card].equals("h4"))
+						{
+							card3p1.setIcon(new ImageIcon(h4));
+							card++;
+							p_value3 = 4;
+						}
+						else if (deck[card].equals("s4"))
+						{
+							card3p1.setIcon(new ImageIcon(s4));
+							card++;
+							p_value3 = 4;
+						}
+						else if (deck[card].equals("c5"))
+						{
+							card3p1.setIcon(new ImageIcon(c5));
+							card++;
+							p_value3 = 5;
+						}
+						else if (deck[card].equals("d5"))
+						{
+							card3p1.setIcon(new ImageIcon(d5));
+							card++;
+							p_value3 = 5;
+						}
+						else if (deck[card].equals("h5"))
+						{
+							card3p1.setIcon(new ImageIcon(h5));
+							card++;
+							p_value3 = 5;
+						}
+						else if (deck[card].equals("s5"))
+						{
+							card3p1.setIcon(new ImageIcon(s5));
+							card++;
+							p_value3 = 5;
+						}
+						else if (deck[card].equals("c6"))
+						{
+							card3p1.setIcon(new ImageIcon(c6));
+							card++;
+							p_value3 = 6;
+						}
+						else if (deck[card].equals("d6"))
+						{
+							card3p1.setIcon(new ImageIcon(d6));
+							card++;
+							p_value3 = 6;
+						}
+						else if (deck[card].equals("h6"))
+						{
+							card3p1.setIcon(new ImageIcon(h6));
+							card++;
+							p_value3 = 6;
+						}
+						else if (deck[card].equals("s6"))
+						{
+							card3p1.setIcon(new ImageIcon(s6));
+							card++;
+							p_value3 = 6;
+						}
+						else if (deck[card].equals("c7"))
+						{
+							card3p1.setIcon(new ImageIcon(c7));
+							card++;
+							p_value3 = 7;
+						}
+						else if (deck[card].equals("d7"))
+						{
+							card3p1.setIcon(new ImageIcon(d7));
+							card++;
+							p_value3 = 7;
+						}
+						else if (deck[card].equals("h7"))
+						{
+							card3p1.setIcon(new ImageIcon(h7));
+							card++;
+							p_value3 = 7;
+						}
+						else if (deck[card].equals("s7"))
+						{
+							card3p1.setIcon(new ImageIcon(s7));
+							card++;
+							p_value3 = 7;
+						}
+						else if (deck[card].equals("c8"))
+						{
+							card3p1.setIcon(new ImageIcon(c8));
+							card++;
+							p_value3 = 8;
+						}
+						else if (deck[card].equals("d8"))
+						{
+							card3p1.setIcon(new ImageIcon(d8));
+							card++;
+							p_value3 = 8;
+						}
+						else if (deck[card].equals("h8"))
+						{
+							card3p1.setIcon(new ImageIcon(h8));
+							card++;
+							p_value3 = 8;
+						}
+						else if (deck[card].equals("s8"))
+						{
+							card3p1.setIcon(new ImageIcon(s8));
+							card++;
+							p_value3 = 8;
+						}
+						else if (deck[card].equals("c9"))
+						{
+							card3p1.setIcon(new ImageIcon(c9));
+							card++;
+							p_value3 = 9;
+						}
+						else if (deck[card].equals("d9"))
+						{
+							card3p1.setIcon(new ImageIcon(d9));
+							card++;
+							p_value3 = 9;
+						}
+						else if (deck[card].equals("h9"))
+						{
+							card3p1.setIcon(new ImageIcon(h9));
+							card++;
+							p_value3 = 9;
+						}
+						else if (deck[card].equals("s9"))
+						{
+							card3p1.setIcon(new ImageIcon(s9));
+							card++;
+							p_value3 = 9;
+						}
+						else if (deck[card].equals("c10"))
+						{
+							card3p1.setIcon(new ImageIcon(c10));
+							card++;
+							p_value3 = 10;
+						}
+						else if (deck[card].equals("d10"))
+						{
+							card3p1.setIcon(new ImageIcon(d10));
+							card++;
+							p_value3 = 10;
+						}
+						else if (deck[card].equals("h10"))
+						{
+							card3p1.setIcon(new ImageIcon(h10));
+							card++;
+							p_value3 = 10;
+						}
+						else if (deck[card].equals("s10"))
+						{
+							card3p1.setIcon(new ImageIcon(s10));
+							card++;
+							p_value3 = 10;
+						}
+						else if (deck[card].equals("cJ"))
+						{
+							card3p1.setIcon(new ImageIcon(cJ));
+							card++;
+							p_value3 = 10;
+						}
+						else if (deck[card].equals("dJ"))
+						{
+							card3p1.setIcon(new ImageIcon(dJ));
+							card++;
+							p_value3 = 10;
+						}
+						else if (deck[card].equals("hJ"))
+						{
+							card3p1.setIcon(new ImageIcon(hJ));
+							card++;
+							p_value3 = 10;
+						}
+						else if (deck[card].equals("sJ"))
+						{
+							card3p1.setIcon(new ImageIcon(sJ));
+							card++;
+							p_value3 = 10;
+						}
+						else if (deck[card].equals("cQ"))
+						{
+							card3p1.setIcon(new ImageIcon(cQ));
+							card++;
+							p_value3 = 10;
+						}
+						else if (deck[card].equals("dQ"))
+						{
+							card3p1.setIcon(new ImageIcon(dQ));
+							card++;
+							p_value3 = 10;
+						}
+						else if (deck[card].equals("hQ"))
+						{
+							card3p1.setIcon(new ImageIcon(hQ));
+							card++;
+							p_value3 = 10;
+						}
+						else if (deck[card].equals("sQ"))
+						{
+							card3p1.setIcon(new ImageIcon(sQ));
+							card++;
+							p_value3 = 10;
+						}
+						else if (deck[card].equals("cK"))
+						{
+							card3p1.setIcon(new ImageIcon(cK));
+							card++;
+							p_value3 = 10;
+						}
+						else if (deck[card].equals("dK"))
+						{
+							card3p1.setIcon(new ImageIcon(dK));
+							card++;
+							p_value3 = 10;
+						}
+						else if (deck[card].equals("hK"))
+						{
+							card3p1.setIcon(new ImageIcon(hK));
+							card++;
+							p_value3 = 10;
+						}
+						else if (deck[card].equals("sK"))
+						{
+							card3p1.setIcon(new ImageIcon(sK));
+							card++;
+							p_value3 = 10;
+						}
+						else
+						{
+							card3p1.setIcon(new ImageIcon());
+							card++;
+						}
+						
+						
+						p_total += p_value3;
+						handValue.setText(String.valueOf(p_total));
+						
+						if(p_total == 0)
+						{
+							numberbox2.setIcon(new ImageIcon(n0));
+						}
+						else if (p_total == 1)
+						{
+							numberbox2.setIcon(new ImageIcon(n1));
+						}
+						else if (p_total == 2)
+						{
+							numberbox2.setIcon(new ImageIcon(n2));
+						}
+						else if (p_total == 3)
+						{
+							numberbox2.setIcon(new ImageIcon(n3));
+						}
+						else if (p_total == 4)
+						{
+							numberbox2.setIcon(new ImageIcon(n4));
+						}
+						else if (p_total == 5)
+						{
+							numberbox2.setIcon(new ImageIcon(n5));
+						}
+						else if (p_total == 6)
+						{
+							numberbox2.setIcon(new ImageIcon(n6));
+						}
+						else if (p_total == 7)
+						{
+							numberbox2.setIcon(new ImageIcon(n7));
+						}
+						else if (p_total == 8)
+						{
+							numberbox2.setIcon(new ImageIcon(n8));
+						}
+						else if (p_total == 9)
+						{
+							numberbox2.setIcon(new ImageIcon(n9));
+						}
+						else if (p_total == 10)
+						{
+							numberbox2.setIcon(new ImageIcon(n10));
+						}
+						else if (p_total == 11)
+						{
+							numberbox2.setIcon(new ImageIcon(n11));
+						}
+						else if (p_total == 12)
+						{
+							numberbox2.setIcon(new ImageIcon(n12));
+						}
+						else if (p_total == 13)
+						{
+							numberbox2.setIcon(new ImageIcon(n13));
+						}
+						else if (p_total == 14)
+						{
+							numberbox2.setIcon(new ImageIcon(n14));
+						}
+						else if (p_total == 15)
+						{
+							numberbox2.setIcon(new ImageIcon(n15));
+						}
+						else if (p_total == 16)
+						{
+							numberbox2.setIcon(new ImageIcon(n16));
+						}
+						else if (p_total == 17)
+						{
+							numberbox2.setIcon(new ImageIcon(n17));
+						}
+						else if (p_total == 18)
+						{
+							numberbox2.setIcon(new ImageIcon(n18));
+						}
+						else if (p_total == 19)
+						{
+							numberbox2.setIcon(new ImageIcon(n19));
+						}
+						else if (p_total == 20)
+						{
+							numberbox2.setIcon(new ImageIcon(n20));
+						}
+						else if (p_total == 21)
+						{
+							numberbox2.setIcon(new ImageIcon(n21));
+						}
+						else if (p_total == 22)
+						{
+							numberbox2.setIcon(new ImageIcon(n22));
+						}
+						else if (p_total == 23)
+						{
+							numberbox2.setIcon(new ImageIcon(n23));
+						}
+						else if (p_total == 24)
+						{
+							numberbox2.setIcon(new ImageIcon(n24));
+						}
+						else if (p_total == 25)
+						{
+							numberbox2.setIcon(new ImageIcon(n25));
+						}
+						else if (p_total == 26)
+						{
+							numberbox2.setIcon(new ImageIcon(n26));
+						}
+						else if (p_total == 27)
+						{
+							numberbox2.setIcon(new ImageIcon(n27));
+						}
+						else if (p_total == 28)
+						{
+							numberbox2.setIcon(new ImageIcon(n28));
+						}
+						else if (p_total == 29)
+						{
+							numberbox2.setIcon(new ImageIcon(n29));
+						}
+						else if (p_total == 30)
+						{
+							numberbox2.setIcon(new ImageIcon(n30));
+						}
+						else if (p_total == 31)
+						{
+							numberbox2.setIcon(new ImageIcon(n29));
+						}
+						else if (p_total == 32)
+						{
+							numberbox2.setIcon(new ImageIcon(n32));
+						}
+						else
+						{
+							numberbox2.setIcon(new ImageIcon());
+						} 
+						
+						
+						if (p_total > 21)
+						{
+							JOptionPane.showMessageDialog(frame, "Bust! Your value exceeded 21. You lose your bet. Press Deal for next phase!");
+							
+							balance -= bet;
+							bet = 0;
+							options = 1;
+							d_switch = false;
+							dealNumber = 0;
+							
+							betlbl.setText(String.valueOf(bet));
+							balancelbl.setText(String.valueOf(balance));
+					
+						}
+						else
+						{
+							if (d_total > 21)
+							{
+								d_bust = 1; 
+							}
+							
+							
+							
+							if (p_total > d_total)
+							{
+								JOptionPane.showMessageDialog(frame, "You WIN, Dealer loses! YOU WIN YOUR BET!");
+								
+								
+								balance += bet;
+								bet = 0;
+								options = 1;
+								d_switch = false;
+								dealNumber = 0;
+								d_bust = 0;
+								betlbl.setText(String.valueOf(bet));
+								balancelbl.setText(String.valueOf(balance));
+								
+								JOptionPane.showMessageDialog(frame, "New Balance has been applied. Press DEAL after placing a new bet!");
+							}
+							else if (d_total > p_total && d_bust == 0)
+							{
+								JOptionPane.showMessageDialog(frame, "Dealer Wins, you Lose! You lost your bet.");
+								
+								balance -= bet;
+								bet = 0;
+								options = 1;
+								d_switch = false;
+								dealNumber = 0;
+								d_bust = 0;
+								
+								betlbl.setText(String.valueOf(bet));
+								balancelbl.setText(String.valueOf(balance));
+								
+								if (balance > 0)
+								{
+									JOptionPane.showMessageDialog(frame, "Place another bet and click DEAL to start a new phase!");
+								}
+								else
+								{
+									JOptionPane.showMessageDialog(frame, "You have no more Money!!! Sorry you lose, GAMEOVER!");
+									lost_the_game =  1;
+								}
+							}
+							else if (d_bust == 1)
+							{
+								JOptionPane.showMessageDialog(frame, "You WIN, Dealer BUST! YOU WIN YOUR BET!");
+								
+								
+								balance += bet;
+								bet = 0;
+								options = 1;
+								d_switch = false;
+								dealNumber = 0;
+								betlbl.setText(String.valueOf(bet));
+								balancelbl.setText(String.valueOf(balance));
+								d_bust = 0;
+								JOptionPane.showMessageDialog(frame, "New Balance has been applied. Press DEAL after placing a new bet!");
+							}
+							else if(p_total == d_total)
+							{
+								JOptionPane.showMessageDialog(frame, "TIE! Bet is returned! ");
+								
+								bet = 0;
+								options = 1;
+								d_switch = false;
+								dealNumber = 0;
+								betlbl.setText(String.valueOf(bet));
+							}
+							
+							
+							
+							
+						}
+						
+						
+						
+						
+					}
+					else
+					{
+						JOptionPane.showMessageDialog(frame, "You cannot do this! Hand Value must be equal to 9, 10, or 11 to Double Down!");
+					}
+					
+					
+					
+					
+					
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(frame, "You cannot do this yet! Please press DEAL to start the player phase!");
+
+				}
+				
+				
+			}
+		});
 		btnDoubleDown.setIcon(new ImageIcon(dd));
 		btnDoubleDown.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnDoubleDown.setBounds(6, 482, 250, 30);
@@ -683,11 +3555,14 @@ public class Gamepage extends JFrame {
 		
 		
 		
-		//***************************************************************************************************
-		//***************************************************************************************************
-		//***************************************************************************************************
 		
 		
+		//**************************************************************************************************************
+		//**************************************************************************************************************
+		//**************************************************************************************************************
+		//**************************************************************************************************************
+		//**************************************************************************************************************
+		//**************************************************************************************************************
 		
 		JButton btnDeal = new JButton("");
 		Image deal = new ImageIcon(this.getClass().getResource("/deal.png")).getImage();
@@ -713,7 +3588,6 @@ public class Gamepage extends JFrame {
 				
 				
 				
-				
 				//The first of the 4 cards is dealt to Dealer's card slot
 				//This code is all for the first random card dealt to the dealer
 				//This conditional if statement makes sure no more than 34 cards are used from the Deck of 52
@@ -722,13 +3596,22 @@ public class Gamepage extends JFrame {
 				{
 					JOptionPane.showMessageDialog(frame, "Cannot Deal! You have not placed a bet yet. Click one of the bet chips below and then click DEAL!");
 				}
-				else if (options == 0)
-				{
-					JOptionPane.showMessageDialog(frame, "To Deal another hand, you must choose one of the Player Options!");
-				}
 				else if(firstDeal == 0 || dealNumber == 0)
 				{
 				scoreHide.setIcon(new ImageIcon(scoreBlock));
+				numberbox.setIcon(new ImageIcon(n0));
+				numberbox2.setIcon(new ImageIcon(n0));
+				cards1.setIcon(new ImageIcon());
+				cards2.setIcon(new ImageIcon());
+				dSlot3.setIcon(new ImageIcon());
+				dSlot4.setIcon(new ImageIcon());
+				
+				cards3.setIcon(new ImageIcon());
+				cards4.setIcon(new ImageIcon());
+				
+				card3p1.setIcon(new ImageIcon());
+				card4p2.setIcon(new ImageIcon());
+				
 				if (card < 34)
 				{
 					d_switch = true;
@@ -2495,7 +5378,7 @@ public class Gamepage extends JFrame {
 						balance += bet;
 						bet = 0;
 						options = 1;
-						
+						d_switch = false;
 						betlbl.setText(String.valueOf(bet));
 						balancelbl.setText(String.valueOf(balance));
 						JOptionPane.showMessageDialog(frame, "Your winnings have been applied to your new balance!");
@@ -2510,6 +5393,7 @@ public class Gamepage extends JFrame {
 						
 						bet = 0;
 						options = 1;
+						d_switch = false;
 						
 						betlbl.setText(String.valueOf(bet));
 						balancelbl.setText(String.valueOf(balance));
@@ -2536,6 +5420,7 @@ public class Gamepage extends JFrame {
 					}
 					
 					card = 0;
+					
 					numberbox.setIcon(new ImageIcon(n0));
 					numberbox2.setIcon(new ImageIcon(n0));
 					
@@ -2545,14 +5430,36 @@ public class Gamepage extends JFrame {
 					cards4.setIcon(new ImageIcon());
 					
 					JOptionPane.showMessageDialog(frame, "Deck has been Reshuffled!  Press 'Deal' to begin!");
-					
-					
+					d_switch = false;
+					options = 1;
+					dealNumber = 0;
 				}
-				 
+				 	
 					firstDeal = 1;
-					dealNumber = 1;
-					options = 0;
+					if (d_switch == true)
+					{
+						dealNumber = 1;
+					}
+					else
+					{
+						dealNumber = 0;
+					}
+					
+					
+					if(b == true)
+					{
+						options = 1;
+
+					}
+					else
+					{
+						options = 0;
+					}
 				
+				}
+				else if (options == 0)
+				{
+					JOptionPane.showMessageDialog(frame, "To Deal another hand, you must choose one of the Player Options!");
 				}
 				else
 				{

@@ -92,7 +92,7 @@ public class Ruleboard {
 		lblBlacklogo.setIcon(new ImageIcon(img3));
 		panelRules.add(lblBlacklogo);
 		
-		JLabel label = new JLabel("PLAYER MAY \"DOUBLE DOWN\" ON VALUES EQUAL TO 8, 10, AND 11");
+		JLabel label = new JLabel("PLAYER MAY \"DOUBLE DOWN\" ON VALUES EQUAL TO 9, 10, AND 11");
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		label.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 18));
 		label.setBounds(46, 108, 657, 48);
